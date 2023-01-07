@@ -12,6 +12,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'helloworld'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
     db.init_app(app)
 
     from .views import views
@@ -20,7 +21,7 @@ def create_app():
     app.register_blueprint(views, url_perfix='/')
     app.register_blueprint(auth, url_prefix='/')
     
-    from .models import User 
+    from .models import User, Post
 
     create_database(app)
 
